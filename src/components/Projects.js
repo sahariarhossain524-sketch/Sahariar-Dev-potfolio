@@ -1,111 +1,141 @@
 "use client";
 
+import React from 'react';
+import Link from 'next/link';
+import ScrollReveal from './ScrollReveal';
+import TiltCard from './TiltCard';
+import MagneticButton from './MagneticButton';
+import { projectsData, otherProjects } from '../data/projectsData';
+
 export default function Projects() {
-  const projects = [
-    {
-      title: 'Design Your World (Digital Assets)',
-      description: 'A premium, highly animated digital assets and templates marketplace generated entirely using Kimi AI. Features complex GSAP scroll animations, Lenis smooth scrolling, and an extensive custom Shadcn UI component architecture.',
-      tags: ['React', 'Vite', 'GSAP', 'Tailwind CSS'],
-      link: 'https://app-one-sigma-78.vercel.app'
-    },
-    {
-      title: 'ShopMate - Premium E-commerce Store',
-      description: 'A high-performance e-commerce storefront built with Next.js App Router, Prisma ORM, and Tailwind CSS. Features smooth Framer Motion animations, dynamic cart state management, and an ultra-modern UI.',
-      tags: ['Next.js', 'Prisma', 'Tailwind CSS', 'Framer Motion'],
-      link: 'https://novaflow-dashboard-one.vercel.app'
-    },
-    {
-      title: 'Full-Stack E-commerce Platform (NEXA)',
-      description: 'A production-ready e-commerce platform orchestrated entirely via AI agents. Features secure user authentication, a real-time PostgreSQL database, and a live payment gateway integration.',
-      tags: ['Next.js', 'Supabase', 'Clerk Auth', 'Stripe API'],
-      link: 'https://ecommerce-store-rust-psi.vercel.app'
-    },
-    {
-      title: 'ResuAI Pro - Premium Resume Builder',
-      description: 'An advanced, ATS-friendly Markdown resume and cover letter builder. Integrated with Google Gemini 2.5 API for context-aware content generation, dual-document tabs, and direct high-quality PDF exports.',
-      tags: ['Next.js', 'Zustand', 'Gemini AI', 'Tailwind CSS'],
-      link: 'https://ai-cv-editor-neon.vercel.app'
-    },
-    {
-      title: 'Kanban Board (Task Management)',
-      description: 'A robust drag-and-drop task management application built with Next.js and Tailwind CSS. Features complex state management, interactive UI components, and a modern project management aesthetic.',
-      tags: ['Next.js', 'React DND', 'Tailwind CSS', 'Zustand'],
-      link: 'https://kanban-board-alpha-ochre-29.vercel.app'
-    },
-    {
-      title: 'AI Dashboard (SaaS App)',
-      description: 'A modern, highly responsive AI SaaS Dashboard featuring dark mode support, interactive data visualizations with Recharts, and a premium UI component architecture.',
-      tags: ['Next.js', 'Tailwind CSS', 'Recharts', 'Lucide React'],
-      link: 'https://ai-dashboard-nine-kappa.vercel.app'
-    },
-    {
-      title: 'Smart AI Cover Letter Generator',
-      description: 'A Next.js web application powered by Google Gemini AI. It takes a user\'s resume and a job description to instantly generate highly tailored, professional cover letters. Features a modern UI built with Tailwind CSS.',
-      tags: ['Next.js', 'React', 'Gemini API', 'Tailwind CSS'],
-      link: 'https://ai-cover-letter-nu-nine.vercel.app'
-    },
-
-    {
-      title: 'GrowthEdge Consulting',
-      description: 'A modern, responsive landing page for a strategic consulting firm. Features clean typography, smooth reveal animations, and a professional corporate aesthetic built with utility-first CSS.',
-      tags: ['Tailwind CSS', 'HTML5', 'UI/UX', 'Responsive Design'],
-      link: 'https://sahariarhossain524-sketch.github.io/Sahariar-Dev/growthedge.html'
-    },
-    {
-      title: 'Alex Carter Portfolio',
-      description: 'A sleek, personal portfolio template designed for creative professionals. Implements modern CSS layouts and interactive UI elements for an engaging user experience.',
-      tags: ['HTML/CSS', 'Tailwind CSS', 'Frontend Development'],
-      link: 'https://sahariarhossain524-sketch.github.io/Sahariar-Dev/alexcarter.html'
-    },
-    {
-      title: 'UrbanNest Real Estate',
-      description: 'A highly visual property listing landing page. Focuses on structured component design, image optimization, and mobile-first responsive interfaces.',
-      tags: ['Tailwind CSS', 'Web Design', 'Frontend'],
-      link: 'https://sahariarhossain524-sketch.github.io/Sahariar-Dev/urbannest.html'
-    }
-  ];
-
-  const cardGradients = [
-    'linear-gradient(135deg, #475569, #1E293B)', // Ash to Dark Slate
-    'linear-gradient(135deg, #3B82F6, #1E293B)', // Primary Blue to Dark Slate
-    'linear-gradient(135deg, #334155, #0F172A)', // Mid Ash to Deep Ash
-    'linear-gradient(135deg, #06B6D4, #1E293B)', // Cyan to Dark Slate
-  ];
+  const SectionHeading = ({ title }) => (
+    <h4 style={{ color: 'var(--primary-color)', fontSize: '0.9rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem', borderBottom: '1px solid rgba(16, 185, 129, 0.2)', paddingBottom: '0.5rem' }}>
+      {title}
+    </h4>
+  );
 
   return (
-    <section id="projects" className="section">
-      <div className="container">
-        <h2 className="section-title fade-in">Featured Projects</h2>
-        <p className="section-subtitle fade-in delay-1">A selection of my recent full-stack applications and AI-driven product deliveries.</p>
-        
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2.5rem', marginTop: '3rem' }}>
-          {projects.map((project, index) => (
-            <div key={index} className={`glass-card fade-in delay-${(index % 3) + 1}`} style={{ display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden' }}>
-              {/* Dynamic Ash/Premium Top Border */}
-              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: cardGradients[index % 4], opacity: 0.8 }}></div>
-              
-              {/* Ash Watermark Number */}
-              <div style={{ position: 'absolute', right: '-10px', top: '-10px', fontSize: '8rem', fontWeight: '900', color: 'rgba(148, 163, 184, 0.04)', zIndex: '0', pointerEvents: 'none', lineHeight: '1' }}>
-                0{index + 1}
-              </div>
+    <section id="projects" className="section" style={{ position: 'relative', overflow: 'hidden' }}>
+      
+      {/* Background Decorators */}
+      <div style={{ position: 'absolute', top: '10%', right: '-10%', width: '800px', height: '800px', background: 'radial-gradient(circle, rgba(16, 185, 129, 0.04) 0%, transparent 60%)', pointerEvents: 'none' }}></div>
+      <div style={{ position: 'absolute', bottom: '10%', left: '-10%', width: '800px', height: '800px', background: 'radial-gradient(circle, rgba(16, 185, 129, 0.04) 0%, transparent 60%)', pointerEvents: 'none' }}></div>
 
-              <div style={{ position: 'relative', zIndex: '1', display: 'flex', flexDirection: 'column', flex: '1' }}>
-                <h3 style={{ color: 'var(--primary-color)', fontSize: '1.4rem', marginBottom: '1rem', fontWeight: '700', letterSpacing: '-0.01em' }}>{project.title}</h3>
-                <p style={{ color: 'var(--text-color)', marginBottom: '1.5rem', flex: '1', lineHeight: '1.7' }}>{project.description}</p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', marginBottom: '2rem' }}>
-                  {project.tags.map((tag, i) => (
-                    <span key={i} style={{ fontSize: '0.75rem', backgroundColor: 'rgba(148, 163, 184, 0.08)', border: '1px solid rgba(148, 163, 184, 0.15)', padding: '0.4rem 0.8rem', borderRadius: '5px', color: 'var(--heading-color)', fontWeight: '500' }}>
-                      {tag}
-                    </span>
-                  ))}
+      <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
+        
+        {/* Main Section Header */}
+        <ScrollReveal>
+          <div style={{ marginBottom: '6rem', textAlign: 'center' }}>
+            <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: '800', color: '#ffffff', letterSpacing: '-0.03em', marginBottom: '1rem' }}>
+              Featured Projects <span style={{ color: 'var(--primary-color)' }}>⭐⭐⭐⭐⭐</span>
+            </h2>
+            <p style={{ color: 'var(--text-color)', fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto', lineHeight: '1.6' }}>
+              Enterprise-level case studies detailing the architecture, challenges, and impact of my recent AI-driven product deliveries.
+            </p>
+          </div>
+        </ScrollReveal>
+        
+        {/* Enterprise Case Studies Preview Cards (Top 4) */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '3rem' }}>
+          {projectsData.map((project, idx) => (
+            <ScrollReveal key={idx} delay={0.1 * idx}>
+              <div className="glass-card" style={{ 
+                background: 'rgba(17, 17, 17, 0.85)', 
+                backdropFilter: 'blur(20px)', 
+                border: '1px solid rgba(255,255,255,0.05)', 
+                borderRadius: '24px', 
+                padding: '2.5rem',
+                position: 'relative',
+                overflow: 'hidden',
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%'
+              }}>
+                
+                {/* Subtle Top Border Highlight */}
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: 'linear-gradient(90deg, transparent, var(--primary-color), transparent)', opacity: 0.5 }}></div>
+
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', marginBottom: '0.5rem' }}>
+                  <span style={{ color: 'var(--primary-color)', fontSize: '1.2rem', fontWeight: '800', opacity: 0.5 }}>{project.id}</span>
+                  <h3 style={{ color: '#ffffff', fontSize: '2rem', fontWeight: '800', letterSpacing: '-0.02em', lineHeight: '1.1' }}>{project.title}</h3>
                 </div>
-                <a href={project.link} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', fontWeight: '600', borderBottom: '2px solid var(--primary-color)', paddingBottom: '0.2rem', width: 'fit-content', color: 'var(--heading-color)', transition: 'color 0.3s ease, border-color 0.3s ease' }} onMouseOver={(e) => e.target.style.color = 'var(--primary-color)'} onMouseOut={(e) => e.target.style.color = 'var(--heading-color)'}>
-                  View Live Project →
-                </a>
+                
+                <p style={{ color: 'var(--primary-color)', fontSize: '1rem', fontWeight: '600', marginBottom: '1.5rem' }}>{project.subtitle}</p>
+                
+                <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '1rem', lineHeight: '1.6', marginBottom: '2rem', flexGrow: 1 }}>
+                  {project.executiveSummary}
+                </p>
+
+                <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '12px', padding: '1.5rem', marginBottom: '2rem' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                    <div>
+                      <span style={{ display: 'block', fontSize: '0.7rem', color: 'var(--text-color)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Type</span>
+                      <strong style={{ color: '#ffffff', fontSize: '0.85rem' }}>{project.quickFacts.type}</strong>
+                    </div>
+                    <div>
+                      <span style={{ display: 'block', fontSize: '0.7rem', color: 'var(--text-color)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Tech</span>
+                      <strong style={{ color: '#ffffff', fontSize: '0.85rem' }}>{project.techStack.slice(0,2).join(' • ')}</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                  <MagneticButton as="div" style={{ flexGrow: 1 }}>
+                    <Link href={`/projects/${project.slug}`} className="btn-primary" style={{ display: 'block', width: '100%', padding: '0.8rem 1.5rem', fontSize: '1rem' }}>
+                      Read Case Study 🚀
+                    </Link>
+                  </MagneticButton>
+                  <MagneticButton as="div">
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ display: 'block', width: '100%', padding: '0.8rem 1.5rem', fontSize: '1rem', color: '#ffffff' }}>
+                      GitHub
+                    </a>
+                  </MagneticButton>
+                </div>
+
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
+
+        {/* Other Projects Grid (Compact) */}
+        <div style={{ marginTop: '8rem' }}>
+          <ScrollReveal>
+            <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+              <h3 style={{ fontSize: '2rem', fontWeight: '800', color: '#ffffff', letterSpacing: '-0.02em' }}>Other Notable Projects</h3>
+              <p style={{ color: 'var(--text-color)' }}>A selection of frontend interfaces, dashboards, and digital assets.</p>
+            </div>
+          </ScrollReveal>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+            {otherProjects.map((project, idx) => (
+              <TiltCard key={idx}>
+                <div style={{ 
+                  background: 'rgba(255,255,255,0.02)', 
+                  border: '1px solid rgba(255,255,255,0.05)', 
+                  borderRadius: '16px', 
+                  padding: '2rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  height: '100%'
+                }}
+                >
+                  <h4 style={{ color: '#ffffff', fontSize: '1.2rem', fontWeight: '700', marginBottom: '0.5rem' }}>{project.title}</h4>
+                  <p style={{ color: 'var(--text-color)', fontSize: '0.9rem', lineHeight: '1.6', marginBottom: '1.5rem', flex: 1 }}>{project.description}</p>
+                  
+                  <div style={{ fontSize: '0.8rem', color: 'var(--primary-color)', fontWeight: '600', marginBottom: '1.5rem' }}>
+                    {project.tech}
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '1rem', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1rem' }}>
+                    <a href={project.demo} target="_blank" rel="noopener noreferrer" style={{ color: '#ffffff', fontSize: '0.85rem', fontWeight: '600', transition: 'color 0.2s', zIndex: 10, position: 'relative' }} onMouseOver={(e) => e.target.style.color = 'var(--primary-color)'} onMouseOut={(e) => e.target.style.color = '#ffffff'}>Demo ↗</a>
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" style={{ color: '#ffffff', fontSize: '0.85rem', fontWeight: '600', transition: 'color 0.2s', zIndex: 10, position: 'relative' }} onMouseOver={(e) => e.target.style.color = 'var(--primary-color)'} onMouseOut={(e) => e.target.style.color = '#ffffff'}>GitHub ↗</a>
+                  </div>
+                </div>
+              </TiltCard>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   );
